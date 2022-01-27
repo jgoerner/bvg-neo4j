@@ -2,10 +2,10 @@
 <br />
 <p align="center">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-  <h3 align="center">{TITLE}</h3>
+  <h3 align="center">BVG - Neo4j</h3>
 
   <p align="center">
-    {ONELINER}
+    Berlin Subway pathfinding with Neo4j #WeilWirDichLieben
     <br />
     <br />
     <a href="">View Demo</a>
