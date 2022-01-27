@@ -1,0 +1,5 @@
+data:
+  directory: data
+  file:
+    name: lines-and-durations.csv
+    header: from,to,line,duration

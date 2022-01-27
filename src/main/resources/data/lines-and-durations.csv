@@ -1,0 +1,200 @@
+from,to,line,duration
+Warschauer Straße,Schlesisches Tor,U1,2
+Schlesisches Tor,Görlitzer Bahnhof,U1,2
+Görlitzer Bahnhof,Kottbusser Tor,U1,1
+Kottbusser Tor,Prinzenstaße,U1,2
+Prinzenstaße,Hallesches Tor,U1,2
+Hallesches Tor,Möckernbrücke,U1,2
+Möckernbrücke,Gleisdreieck,U1,1
+Gleisdreieck,Kurfürstenstraße,U1,2
+Kurfürstenstraße,Nollendorfplatz,U1,2
+Nollendorfplatz,Wittenbergplatz,U1,2
+Wittenbergplatz,Kurfürstendamm,U1,1
+Kurfürstendamm,Uhlandstraße,U1,1
+Pankow,Vinetastraße,U2,1
+Vinetastraße,Schönhauser Allee,U2,2
+Schönhauser Allee,Eberswalder Straße,U2,2
+Eberswalder Straße,Seneferlderplatz,U2,2
+Seneferlderplatz,Rosa-Luxemburg-Platz,U2,2
+Rosa-Luxemburg-Platz,Alexanderplatz,U2,2
+Alexanderplatz,Klosterstraße,U2,2
+Klosterstraße,Märkisches Museum,U2,1
+Märkisches Museum,Spittelmarkt,U2,2
+Spittelmarkt,Hausvogteiplatz,U2,2
+Hausvogteiplatz,Stadtmitte,U2,2
+Stadtmitte,Mohrenstraße,U2,1
+Mohrenstraße,Postdamer Platz,U2,1
+Postdamer Platz,Mendelssohn-Bartholdy-Park,U2,2
+Mendelssohn-Bartholdy-Park,Gleisdreieck,U2,1
+Gleisdreieck,Bülowstraße,U2,2
+Bülowstraße,Nollendorfplatz,U2,2
+Nollendorfplatz,Wittenbergplatz,U2,1
+Wittenbergplatz,Zoologischer Garten,U2,3
+Zoologischer Garten,Ernst-Reuter-Platz,U2,1
+Ernst-Reuter-Platz,Deutsche Oper,U2,2
+Deutsche Oper,Bismarckstraße,U2,1
+Bismarckstraße,Sophie-Charlotte-Platz,U2,2
+Sophie-Charlotte-Platz,Kaiserdamm,U2,1
+Kaiserdamm,Theodor-Heuss-Platz,U2,2
+Theodor-Heuss-Platz,Neu-Westend,U2,2
+Neu-Westend,Olympia-Stadion,U2,1
+Olympia-Stadion,Ruhleben,U2,2
+Warschauer Straße,Schlesisches Tor,U3,2
+Schlesisches Tor,Görlitzer Bahnhof,U3,2
+Görlitzer Bahnhof,Kottbusser Tor,U3,1
+Kottbusser Tor,Prinzenstaße,U3,2
+Prinzenstaße,Hallesches Tor,U3,2
+Hallesches Tor,Möckernbrücke,U3,2
+Möckernbrücke,Gleisdreieck,U3,1
+Gleisdreieck,Kurfürstenstraße,U3,2
+Kurfürstenstraße,Nollendorfplatz,U3,2
+Nollendorfplatz,Wittenbergplatz,U3,2
+Wittenbergplatz,Augsburger Straße,U3,2
+Augsburger Straße,Spichernstraße,U3,1
+Spichernstraße,Hohenzollernplatz,U3,2
+Hohenzollernplatz,Fehrbelliner Platz,U3,1
+Fehrbelliner Platz,Heidelberger Platz,U3,2
+Heidelberger Platz,Rüdesheimer Platz,U3,2
+Rüdesheimer Platz,Breitenbachplatz,U3,1
+Breitenbachplatz,Podbielskiallee,U3,2
+Podbielskiallee,Dahlem-Dorf,U3,1
+Dahlem-Dorf,Freie Universität (Thielplatz),U3,2
+Freie Universität (Thielplatz),Oskar-Helene-Heim,U3,2
+Oskar-Helene-Heim,Onkel Toms Hütte,U3,2
+Onkel Toms Hütte,Krumme Lanke,U3,2
+Nollendorfplatz,Viktoria-Luise-Platz,U4,2
+Viktoria-Luise-Platz,Bayerischer Platz,U4,1
+Bayerischer Platz,Rathaus Schöneberg,U4,2
+Rathaus Schöneberg,Innsbrucker Platz,U4,1
+Hönow,Louis-Lewin-Straße,U5,2
+Louis-Lewin-Straße,Hellersdorf,U5,1
+Hellersdorf,Cottbusser Platz,U5,2
+Cottbusser Platz,Kienberg,U5,1
+Kienberg,Kaulsdorf-Nor,U5,2
+Kaulsdorf-Nor,Wuhletal,U5,2
+Wuhletal,Elsterwerdaer Platz,U5,2
+Elsterwerdaer Platz,Biesdorf-Süd,U5,2
+Biesdorf-Süd,Tierpark,U5,3
+Tierpark,Friedrichsfelde,U5,2
+Friedrichsfelde,Lichtenberg,U5,2
+Lichtenberg,Magdalenenstraße,U5,1
+Magdalenenstraße,Frankfurter Allee,U5,2
+Frankfurter Allee,Samariterstraße,U5,1
+Samariterstraße,Frankfurter Tor,U5,2
+Frankfurter Tor,Weberwiese,U5,1
+Weberwiese,Strausberger Platz,U5,1
+Strausberger Platz,Schillingstraße,U5,2
+Schillingstraße,Alexanderplatz,U5,2
+Alexanderplatz,Rotes Rathaus,U5,1
+Rotes Rathaus,Museumsinsel,U5,1
+Museumsinsel,Unter den Linden,U5,2
+Unter den Linden,Brandenburger Tor,U5,1
+Brandenburger Tor,Bundestag,U5,1
+Bundestag,Hauptbahnhof,U5,2
+Alt-Tegel,Borsigwerke,U6,1
+Borsigwerke,Holzhauser Straße,U6,2
+Holzhauser Straße,Otisstraße,U6,1
+Otisstraße,Scharnweberstraße,U6,1
+Scharnweberstraße,Kurt-Schumacher-Platz,U6,2
+Kurt-Schumacher-Platz,Afrikanische Straße,U6,1
+Afrikanische Straße,Rehberge,U6,1
+Rehberge,Seestaße,U6,2
+Seestaße,Leopoldplatz,U6,2
+Leopoldplatz,Wedding,U6,1
+Wedding,Reinickendorfer Straße,U6,1
+Reinickendorfer Straße,Schwarzkopffstraße,U6,1
+Schwarzkopffstraße,Naturkundemuseum,U6,1
+Naturkundemuseum,Oranienburger Tor,U6,2
+Oranienburger Tor,Friedrichstraße,U6,1
+Friedrichstraße,Unter den Linden,U6,1
+Unter den Linden,Stadtmitte,U6,2
+Stadtmitte,Kochstraße / Checkpoints Charlie,U6,1
+Kochstraße / Checkpoints Charlie,Hallesches Tor,U6,1
+Hallesches Tor,Mehringdamm,U6,2
+Mehringdamm,Platz der Luftbrücke,U6,2
+Platz der Luftbrücke,Paradestraße,U6,1
+Paradestraße,Tempelhof,U6,2
+Tempelhof,Alt-Tempelhof,U6,1
+Alt-Tempelhof,Kaiserin-Augusta-Straße,U6,1
+Kaiserin-Augusta-Straße,Ullsteinstraße,U6,1
+Ullsteinstraße,Westphalweg,U6,2
+Westphalweg,Alt-Mariendorf,U6,1
+Rathaus Spandau,Altstadt Spandau,U7,1
+Altstadt Spandau,Zitadelle,U7,1
+Zitadelle,Haselhorst,U7,2
+Haselhorst,Paulsternstraße,U7,2
+Paulsternstraße,Rohrdamm,U7,1
+Rohrdamm,Siemensdamm,U7,2
+Siemensdamm,Halemweg,U7,1
+Halemweg,Jakob-Kaiser-Platz,U7,1
+Jakob-Kaiser-Platz,Jungfernheide,U7,2
+Jungfernheide,Mierendorffplatz,U7,1
+Mierendorffplatz,Richard-Wagner-Platz,U7,2
+Richard-Wagner-Platz,Bismarckstraße,U7,1
+Bismarckstraße,Wilmersdorfer Straße,U7,1
+Wilmersdorfer Straße,Adenauer Platz,U7,2
+Adenauer Platz,Konstanzer Straße,U7,1
+Konstanzer Straße,Fehrbelliner Platz,U7,1
+Fehrbelliner Platz,Blissestraße,U7,2
+Blissestraße,Berliner Straße,U7,1
+Berliner Straße,Bayerischer Platz,U7,1
+Bayerischer Platz,Eisenacher Straße,U7,1
+Eisenacher Straße,Kleistpark,U7,2
+Kleistpark,Yorckstraße,U7,1
+Yorckstraße,Möckernbrücke,U7,2
+Möckernbrücke,Mehringdamm,U7,2
+Mehringdamm,Gneisenaustraße,U7,1
+Gneisenaustraße,Südstern,U7,2
+Südstern,Hermannplatz,U7,2
+Hermannplatz,Rathaus Neukölln,U7,1
+Rathaus Neukölln,Karl-Marx-Straße,U7,2
+Karl-Marx-Straße,Neukölln,U7,1
+Neukölln,Grenzallee,U7,2
+Grenzallee,Blaschkoallee,U7,1
+Blaschkoallee,Parchimer Allee,U7,2
+Parchimer Allee,Britz-Süd,U7,1
+Britz-Süd,Johannisthaler Chaussee,U7,2
+Johannisthaler Chaussee,Lipschitzallee,U7,1
+Lipschitzallee,Wutzkyallee,U7,2
+Wutzkyallee,Zwickauer Damm,U7,1
+Zwickauer Damm,Rudow,U7,1
+Wittenau,Rathaus Reinickendorf,U8,1
+Rathaus Reinickendorf,Karl-Bonhoeffer-Nervenklinik,U8,2
+Karl-Bonhoeffer-Nervenklinik,Lindauer Allee,U8,2
+Lindauer Allee,Paracelsus-Bad,U8,1
+Paracelsus-Bad,Residenzstraße,U8,1
+Residenzstraße,Franz-Neumann-Platz,U8,2
+Franz-Neumann-Platz,Osloer Straße,U8,2
+Osloer Straße,Pankstraße,U8,1
+Pankstraße,Gesundbrunnen,U8,2
+Gesundbrunnen,Voltastaße,U8,1
+Voltastaße,Bernauer Straße,U8,2
+Bernauer Straße,Rosenthaler Platz,U8,1
+Rosenthaler Platz,Weinmeisterstraße,U8,2
+Weinmeisterstraße,Alexanderplatz,U8,2
+Alexanderplatz,Jannowitzbrücke,U8,1
+Jannowitzbrücke,Heinrich-Heine-Straße,U8,2
+Heinrich-Heine-Straße,Moritzplatz,U8,1
+Moritzplatz,Kottbusser Tor,U8,2
+Kottbusser Tor,Schönleinstraße,U8,2
+Schönleinstraße,Hermannplatz,U8,2
+Hermannplatz,Boddinstraße,U8,1
+Boddinstraße,Leinestraße,U8,2
+Leinestraße,Hermannstraße,U8,1
+Osloer Straße,Nauener Platz,U9,1
+Nauener Platz,Leopoldplatz,U9,1
+Leopoldplatz,Amrumer Straße,U9,2
+Amrumer Straße,Westhafen,U9,1
+Westhafen,Birkenstraße,U9,1
+Birkenstraße,Turmstraße,U9,2
+Turmstraße,Hansaplatz,U9,1
+Hansaplatz,Zoologischer Garten,U9,2
+Zoologischer Garten,Kurfürstendamm,U9,2
+Kurfürstendamm,Spichernstraße,U9,1
+Spichernstraße,Güntzelstraße,U9,1
+Güntzelstraße,Berliner Straße,U9,1
+Berliner Straße,Bundesplatz,U9,2
+Bundesplatz,Friedrich-Wilhelm-Platz,U9,1
+Friedrich-Wilhelm-Platz,Walther-Schreiber-Platz,U9,1
+Walther-Schreiber-Platz,Schloßstraße,U9,2
+Schloßstraße,Rathaus Steglitz,U9,1
