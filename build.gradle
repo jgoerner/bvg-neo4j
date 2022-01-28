@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.palantir.docker-run' version '0.26.0'
 }
 
 group = 'io.jgoerner'
@@ -21,4 +22,13 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+dockerRun {
+    name group.toString() + ".neo4j"
+    image "neo4j"
+    ports "7474:7474", "7687:7687"
+    daemonize true
+    env 'NEO4J_AUTH': 'neo4j/bvg'
+    clean true
 }
