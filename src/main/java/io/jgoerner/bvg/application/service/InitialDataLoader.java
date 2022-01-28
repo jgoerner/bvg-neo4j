@@ -52,6 +52,7 @@ public class InitialDataLoader implements CommandLineRunner {
                 .Builder
                 .create()
                 .setHeader(RAW_HEADER.split(","))
+                .setSkipHeaderRecord(true)
                 .build()
                 .parse(reader);
     }
