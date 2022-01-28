@@ -1,10 +1,12 @@
-package io.jgoerner.bvg.application.service;
+package io.jgoerner.bvg.adapter.in.scheduled;
 
+import io.jgoerner.bvg.application.port.in.UpsertConnection;
 import io.jgoerner.bvg.domain.Connection;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,7 @@ import java.util.stream.StreamSupport;
 @Component
 public class InitialDataLoader implements CommandLineRunner {
 
-    Logger log = LoggerFactory.getLogger(InitialDataLoader.class);
+    private final Logger log = LoggerFactory.getLogger(InitialDataLoader.class);
 
     @Value("${data.directory}")
     private String DATA_DIR;
@@ -31,13 +33,15 @@ public class InitialDataLoader implements CommandLineRunner {
     @Value("${data.file.header}")
     private String RAW_HEADER;
 
+    @Autowired
+    private UpsertConnection connectionUpserter;
+
     @Override
     public void run(String... args) throws Exception {
         var lines = readFile(FILE_NAME);
         StreamSupport.stream(lines.spliterator(), false)
                 .map(Connection::fromCSVRecord)
-                .map(Connection::toString)
-                .forEach(log::info);
+                .forEach(this.connectionUpserter::upsert) ;
         // TODO utilize the parsed records
     }
 
