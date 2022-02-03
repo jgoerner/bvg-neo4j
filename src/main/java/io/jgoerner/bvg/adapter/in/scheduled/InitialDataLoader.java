@@ -1,7 +1,7 @@
 package io.jgoerner.bvg.adapter.in.scheduled;
 
-import io.jgoerner.bvg.application.port.in.UpsertConnection;
-import io.jgoerner.bvg.domain.Connection;
+import io.jgoerner.bvg.application.port.in.CreateSegment;
+import io.jgoerner.bvg.domain.Segment;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
@@ -34,15 +34,18 @@ public class InitialDataLoader implements CommandLineRunner {
     private String RAW_HEADER;
 
     @Autowired
-    private UpsertConnection connectionUpserter;
+    private CreateSegment segmentCreator;
 
     @Override
     public void run(String... args) throws Exception {
         var lines = readFile(FILE_NAME);
         StreamSupport.stream(lines.spliterator(), false)
-                .map(Connection::fromCSVRecord)
-                .forEach(this.connectionUpserter::upsert) ;
-        // TODO utilize the parsed records
+                .map(record -> Segment.builder()
+                        .from(record.get("from"))
+                        .to(record.get("to"))
+                        .line(record.get("line"))
+                        .duration(Integer.valueOf(record.get("duration"))))
+                .forEach(this.segmentCreator::create);
     }
 
     private Iterable<CSVRecord> readFile(String filename) throws IOException {
