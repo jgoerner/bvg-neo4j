@@ -1,5 +1,6 @@
 package io.jgoerner.bvg.adapter.out.neo4j;
 
+import io.jgoerner.bvg.application.port.out.DeleteAllSegments;
 import io.jgoerner.bvg.application.port.out.SaveSegment;
 import io.jgoerner.bvg.domain.Segment;
 import org.slf4j.Logger;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class GraphHandler implements SaveSegment {
+public class GraphHandler implements SaveSegment, DeleteAllSegments {
 
     private final Logger log = LoggerFactory.getLogger(GraphHandler.class);
 
@@ -55,6 +56,16 @@ public class GraphHandler implements SaveSegment {
 
         // save end
         return segment;
+    }
+
+    @Override
+    public void deleteAll() {
+        try {
+            log.info("Deleting all Segments");
+            stationRepository.deleteAll();
+        } catch (Exception e) {
+            log.info("Could not delete all segments");
+        }
     }
 }
 
