@@ -1,7 +1,9 @@
 package io.jgoerner.bvg.adapter.out.neo4j;
 
-import io.jgoerner.bvg.domain.Station;
-import org.springframework.data.neo4j.core.schema.*;
+
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +16,16 @@ public class StationEntity {
     String name;
 
     @Relationship
-    List<StationEntity> connections;
+    List<Connection> connections;
 
     public StationEntity(String name) {
         this.connections = new ArrayList<>();
         this.name = name;
     }
 
-    void addConnection(StationEntity entity) {
-        this.connections.add(entity);
+    void addConnection(StationEntity entity, String line, Integer duration) {
+        this.connections.add(new Connection(entity, line, duration));
     }
 
 }
+

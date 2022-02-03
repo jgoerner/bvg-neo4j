@@ -38,7 +38,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments {
 
         // add segment to start
         log.info("Adding connection to start node");
-        startStation.addConnection(endStation);
+        startStation.addConnection(endStation, segment.line().name(), segment.duration());
 
         // save start
         log.info("Saving first node");
@@ -47,7 +47,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments {
 
         // add segment to end
         log.info("Adding connection to end node");
-        endStation.addConnection(startStation);
+        endStation.addConnection(startStation, segment.line().name(), segment.duration());
 
         // add segment to end
         log.info("Saving connection to last node");
