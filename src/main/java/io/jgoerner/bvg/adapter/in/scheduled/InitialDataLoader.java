@@ -1,6 +1,7 @@
 package io.jgoerner.bvg.adapter.in.scheduled;
 
 import io.jgoerner.bvg.application.port.in.CreateSegment;
+import io.jgoerner.bvg.application.port.out.DeleteAllSegments;
 import io.jgoerner.bvg.domain.Segment;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -36,8 +37,12 @@ public class InitialDataLoader implements CommandLineRunner {
     @Autowired
     private CreateSegment segmentCreator;
 
+    @Autowired
+    private DeleteAllSegments segmentDeleter;
+
     @Override
     public void run(String... args) throws Exception {
+        segmentDeleter.deleteAll();
         var lines = readFile(FILE_NAME);
         StreamSupport.stream(lines.spliterator(), false)
                 .map(record -> Segment.builder()
