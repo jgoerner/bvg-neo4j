@@ -1,0 +1,41 @@
+from,to,line,duration
+Warschauer Straße,Schlesisches Tor,U1,2
+Schlesisches Tor,Görlitzer Bahnhof,U1,2
+Görlitzer Bahnhof,Kottbusser Tor,U1,1
+Kottbusser Tor,Prinzenstaße,U1,2
+Prinzenstaße,Hallesches Tor,U1,2
+Hallesches Tor,Möckernbrücke,U1,2
+Möckernbrücke,Gleisdreieck,U1,1
+Gleisdreieck,Kurfürstenstraße,U1,2
+Kurfürstenstraße,Nollendorfplatz,U1,2
+Nollendorfplatz,Wittenbergplatz,U1,2
+Wittenbergplatz,Kurfürstendamm,U1,1
+Kurfürstendamm,Uhlandstraße,U1,1
+Pankow,Vinetastraße,U2,1
+Vinetastraße,Schönhauser Allee,U2,2
+Schönhauser Allee,Eberswalder Straße,U2,2
+Eberswalder Straße,Seneferlderplatz,U2,2
+Seneferlderplatz,Rosa-Luxemburg-Platz,U2,2
+Rosa-Luxemburg-Platz,Alexanderplatz,U2,2
+Alexanderplatz,Klosterstraße,U2,2
+Klosterstraße,Märkisches Museum,U2,1
+Märkisches Museum,Spittelmarkt,U2,2
+Spittelmarkt,Hausvogteiplatz,U2,2
+Hausvogteiplatz,Stadtmitte,U2,2
+Stadtmitte,Mohrenstraße,U2,1
+Mohrenstraße,Postdamer Platz,U2,1
+Postdamer Platz,Mendelssohn-Bartholdy-Park,U2,2
+Mendelssohn-Bartholdy-Park,Gleisdreieck,U2,1
+Gleisdreieck,Bülowstraße,U2,2
+Bülowstraße,Nollendorfplatz,U2,2
+Nollendorfplatz,Wittenbergplatz,U2,1
+Wittenbergplatz,Zoologischer Garten,U2,3
+Zoologischer Garten,Ernst-Reuter-Platz,U2,1
+Ernst-Reuter-Platz,Deutsche Oper,U2,2
+Deutsche Oper,Bismarckstraße,U2,1
+Bismarckstraße,Sophie-Charlotte-Platz,U2,2
+Sophie-Charlotte-Platz,Kaiserdamm,U2,1
+Kaiserdamm,Theodor-Heuss-Platz,U2,2
+Theodor-Heuss-Platz,Neu-Westend,U2,2
+Neu-Westend,Olympia-Stadion,U2,1
+Olympia-Stadion,Ruhleben,U2,2
