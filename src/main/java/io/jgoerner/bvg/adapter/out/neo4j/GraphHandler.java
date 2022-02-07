@@ -1,8 +1,11 @@
 package io.jgoerner.bvg.adapter.out.neo4j;
 
 import io.jgoerner.bvg.application.port.out.DeleteAllSegments;
+import io.jgoerner.bvg.application.port.out.RetrieveSimplePath;
 import io.jgoerner.bvg.application.port.out.SaveSegment;
+import io.jgoerner.bvg.domain.Route;
 import io.jgoerner.bvg.domain.Segment;
+import io.jgoerner.bvg.domain.Station;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class GraphHandler implements SaveSegment, DeleteAllSegments {
+public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSimplePath {
 
     private final Logger log = LoggerFactory.getLogger(GraphHandler.class);
 
@@ -66,6 +69,13 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments {
         } catch (Exception e) {
             log.info("Could not delete all segments");
         }
+    }
+
+    @Override
+    public Route retrieveSimplePath(Station from, Station to) {
+        // 1. Fire query against Neo via custom @Query - MATCH p=shortestPath(...
+        // 2. Map the raw path result to domain object Route
+        return null;
     }
 }
 
