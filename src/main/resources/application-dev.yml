@@ -9,3 +9,4 @@ data:
   file:
     name: lines-and-durations.dev.csv
     header: from,to,line,duration
+  rebuildAtStart: true

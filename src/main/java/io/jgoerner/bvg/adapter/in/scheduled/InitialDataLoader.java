@@ -34,6 +34,9 @@ public class InitialDataLoader implements CommandLineRunner {
     @Value("${data.file.header}")
     private String RAW_HEADER;
 
+    @Value("${data.rebuildAtStart}")
+    private Boolean REBUID_AT_START;
+
     @Autowired
     private CreateSegment segmentCreator;
 
@@ -42,15 +45,18 @@ public class InitialDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        segmentDeleter.deleteAll();
-        var lines = readFile(FILE_NAME);
-        StreamSupport.stream(lines.spliterator(), false)
-                .map(record -> Segment.builder()
-                        .from(record.get("from"))
-                        .to(record.get("to"))
-                        .line(record.get("line"))
-                        .duration(Integer.valueOf(record.get("duration"))))
-                .forEach(this.segmentCreator::create);
+
+        if (REBUID_AT_START) {
+            segmentDeleter.deleteAll();
+            var lines = readFile(FILE_NAME);
+            StreamSupport.stream(lines.spliterator(), false)
+                    .map(record -> Segment.builder()
+                            .from(record.get("from"))
+                            .to(record.get("to"))
+                            .line(record.get("line"))
+                            .duration(Integer.valueOf(record.get("duration"))))
+                    .forEach(this.segmentCreator::create);
+        }
     }
 
     private Iterable<CSVRecord> readFile(String filename) throws IOException {
