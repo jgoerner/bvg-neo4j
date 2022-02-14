@@ -35,7 +35,7 @@ public class InitialDataLoader implements CommandLineRunner {
     private String RAW_HEADER;
 
     @Value("${data.rebuildAtStart}")
-    private Boolean REBUID_AT_START;
+    private Boolean REBUILD_AT_START;
 
     @Autowired
     private CreateSegment segmentCreator;
@@ -46,7 +46,7 @@ public class InitialDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (REBUID_AT_START) {
+        if (REBUILD_AT_START) {
             segmentDeleter.deleteAll();
             var lines = readFile(FILE_NAME);
             StreamSupport.stream(lines.spliterator(), false)
