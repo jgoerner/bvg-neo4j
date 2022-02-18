@@ -10,17 +10,25 @@ public class Connection {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @TargetNode
-    StationEntity to;
+    private final StationEntity to;
 
-    String line;
-    Integer duration;
+    private final String line;
+    private final Integer duration;
 
     public Connection(StationEntity to, String line, Integer duration) {
         this.to = to;
         this.line = line;
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Connection{" +
+                "line='" + line + '\'' +
+                ", duration=" + duration +
+                '}';
     }
 }

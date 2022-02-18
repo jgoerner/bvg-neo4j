@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 
 @Component
 public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSimplePath {
@@ -27,7 +29,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
         var startStationNode = stationRepository
                 .findByName(segment.from().name());
 
-        var startStation = startStationNode.orElseGet(() -> new StationEntity(segment.from().name()));
+        var startStation = startStationNode.orElseGet(() -> new StationEntity(segment.from().name(), new ArrayList<>()));
         if (startStationNode.isEmpty()) {
             log.info("Saving {}", startStation);
             stationRepository.save(startStation);
@@ -36,7 +38,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
         log.info("Retrieving second node, {}", segment.to().name());
         var endStationNode = stationRepository
                 .findByName(segment.to().name());
-        var endStation = endStationNode.orElseGet(() -> new StationEntity(segment.to().name()));
+        var endStation = endStationNode.orElseGet(() -> new StationEntity(segment.to().name(), new ArrayList<>()));
         if (endStationNode.isEmpty()) stationRepository.save(endStation);
 
         // add segment to start
