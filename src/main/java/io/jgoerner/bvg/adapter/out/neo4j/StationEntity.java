@@ -30,7 +30,6 @@ public final class StationEntity {
     public String toString() {
         return "StationEntity{" +
                 "name='" + name + '\'' +
-                "connections=" + connections +
                 '}';
     }
 }
