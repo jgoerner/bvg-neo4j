@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * @soundtrack Daft Punk - Doin' it right
+ */
 @Component
 public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSimplePath, GetAllStationsOnShortestPath {
 
