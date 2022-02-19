@@ -6,10 +6,14 @@ import io.jgoerner.bvg.application.port.out.RetrieveSimplePath;
 import io.jgoerner.bvg.application.port.out.SaveSegment;
 import io.jgoerner.bvg.domain.Route;
 import io.jgoerner.bvg.domain.Segment;
-import io.jgoerner.bvg.domain.Station;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,6 +30,15 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
 
     @Autowired
     private StationRepository stationRepository;
+
+    @Value("${spring.neo4j.uri}")
+    private String URI;
+
+    @Value("${spring.neo4j.authentication.username}")
+    private String USERNAME;
+
+    @Value("${spring.neo4j.authentication.password}")
+    private String PASSWORD;
 
     @Override
     public Segment save(Segment segment) {
@@ -79,15 +92,58 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
     }
 
     @Override
-    public Route retrieveSimplePath(Station from, Station to) {
-        // 1. Fire query against Neo via custom @Query - MATCH p=shortestPath(...
-        // 2. Map the raw path result to domain object Route
-        return null;
+    public Route retrieveSimplePath(String from, String to) {
+        var route = getClient().query("""
+                        MATCH
+                        	p=shortestPath(
+                        		(n {name: $from })-[*..100]->(m {name: $to })
+                        	)
+                        RETURN
+                        	nodes(p) as stations,
+                        	relationships(p) as lines
+                        """)
+                .bind(from).to("from")
+                .bind(to).to("to")
+                .fetchAs(Route.class)
+                .mappedBy((typeSystem, record) -> {
+                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString(), new ArrayList<>()));
+                    var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
+
+                    var segments = new ArrayList<Segment>();
+
+                    StationEntity fromStation;
+                    StationEntity toStation;
+                    Connection connection;
+
+                    for (int i = 0; i < lines.size(); i++) {
+                        fromStation = stations.get(i);
+                        toStation = stations.get(i + 1);
+                        connection = lines.get(i);
+
+                        segments.add(
+                                Segment.builder()
+                                        .from(fromStation.getName())
+                                        .to(toStation.getName())
+                                        .line(connection.getLine())
+                                        .duration(connection.getDuration())
+                        );
+
+                    }
+                    return new Route(segments);
+                })
+                .one();
+        return route.orElse(new Route(new ArrayList<>()));
     }
 
     @Override
     public List<StationEntity> getAllStationsOnShortestPath(String from, String to) {
         return stationRepository.findStationsOnShortestPath(from, to).orElse(new ArrayList<>());
+    }
+
+    private Neo4jClient getClient() {
+        Driver driver = GraphDatabase
+                .driver(URI, AuthTokens.basic(USERNAME, PASSWORD));
+        return Neo4jClient.create(driver);
     }
 }
 
