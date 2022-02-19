@@ -22,8 +22,14 @@ public final class StationEntity {
         this.connections = connections;
     }
 
-    void addConnection(StationEntity entity, String line, Integer duration) {
-        this.connections.add(new Connection(entity, line, duration));
+    public void addConnection(StationEntity entity, String line, Integer duration) {
+        var connection = new Connection(line, duration);
+        connection.setTo(entity);
+        this.connections.add(connection);
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -31,6 +37,10 @@ public final class StationEntity {
         return "StationEntity{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    public void printPath() {
+
     }
 }
 
