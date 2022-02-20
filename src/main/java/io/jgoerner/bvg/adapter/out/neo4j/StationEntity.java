@@ -5,6 +5,7 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,10 +16,14 @@ public final class StationEntity {
     private final String name;
 
     @Relationship
-    private final List<Connection> connections;
+    private List<Connection> connections;
 
-    public StationEntity(String name, List<Connection> connections) {
+    public StationEntity(String name) {
         this.name = name;
+        this.connections = new ArrayList<>();
+    }
+
+    public void setConnections(List<Connection> connections) {
         this.connections = connections;
     }
 
@@ -39,8 +44,5 @@ public final class StationEntity {
                 '}';
     }
 
-    public void printPath() {
-
-    }
 }
 

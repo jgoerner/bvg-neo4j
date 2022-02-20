@@ -47,7 +47,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
         var startStationNode = stationRepository
                 .findByName(segment.from().name());
 
-        var startStation = startStationNode.orElseGet(() -> new StationEntity(segment.from().name(), new ArrayList<>()));
+        var startStation = startStationNode.orElseGet(() -> new StationEntity(segment.from().name()));
         if (startStationNode.isEmpty()) {
             log.info("Saving {}", startStation);
             stationRepository.save(startStation);
@@ -56,7 +56,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
         log.info("Retrieving second node, {}", segment.to().name());
         var endStationNode = stationRepository
                 .findByName(segment.to().name());
-        var endStation = endStationNode.orElseGet(() -> new StationEntity(segment.to().name(), new ArrayList<>()));
+        var endStation = endStationNode.orElseGet(() -> new StationEntity(segment.to().name()));
         if (endStationNode.isEmpty()) stationRepository.save(endStation);
 
         // add segment to start
@@ -106,7 +106,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSim
                 .bind(to).to("to")
                 .fetchAs(Route.class)
                 .mappedBy((typeSystem, record) -> {
-                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString(), new ArrayList<>()));
+                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
                     var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
 
                     var segments = new ArrayList<Segment>();
