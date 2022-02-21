@@ -2,7 +2,7 @@ package io.jgoerner.bvg.adapter.out.neo4j;
 
 import io.jgoerner.bvg.application.port.out.DeleteAllSegments;
 import io.jgoerner.bvg.application.port.out.GetAllStationsOnShortestPath;
-import io.jgoerner.bvg.application.port.out.RetrieveSimplePath;
+import io.jgoerner.bvg.application.port.out.RetrieveShortestPath;
 import io.jgoerner.bvg.application.port.out.SaveSegment;
 import io.jgoerner.bvg.domain.Route;
 import io.jgoerner.bvg.domain.Segment;
@@ -24,7 +24,7 @@ import java.util.List;
  * @soundtrack Daft Punk - Doin' it right
  */
 @Component
-public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSimplePath, GetAllStationsOnShortestPath {
+public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveShortestPath, GetAllStationsOnShortestPath {
 
     private final Logger log = LoggerFactory.getLogger(GraphHandler.class);
 

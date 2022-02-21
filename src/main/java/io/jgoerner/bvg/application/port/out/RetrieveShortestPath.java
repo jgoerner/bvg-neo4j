@@ -6,7 +6,7 @@ import io.jgoerner.bvg.domain.Route;
  * Simple path being the connection between A and B
  * without further filtering or such
  */
-public interface RetrieveSimplePath {
+public interface RetrieveShortestPath {
 
     Route retrieveSimplePath(String from, String to);
 

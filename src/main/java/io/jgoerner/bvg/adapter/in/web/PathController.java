@@ -1,7 +1,7 @@
 package io.jgoerner.bvg.adapter.in.web;
 
 
-import io.jgoerner.bvg.application.port.out.RetrieveSimplePath;
+import io.jgoerner.bvg.application.port.out.RetrieveShortestPath;
 import io.jgoerner.bvg.domain.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PathController {
 
     @Autowired
-    private RetrieveSimplePath simplePathRetriever;
+    private RetrieveShortestPath simplePathRetriever;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public Route test(@RequestParam("from") String from, @RequestParam("to") String to) {
