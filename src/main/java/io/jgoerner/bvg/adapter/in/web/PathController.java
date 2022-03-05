@@ -31,13 +31,22 @@ public class PathController {
     Logger log = LoggerFactory.getLogger(SegmentService.class);
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public Route retrievePath(@RequestParam("from") String from, @RequestParam("to") String to, @RequestParam(value = "exclude", required = false) List<Line> exclude) {
+    public Object retrievePath(
+            @RequestParam("from") String from,
+            @RequestParam("to") String to,
+            @RequestParam(value = "exclude", required = false) List<Line> exclude,
+            @RequestParam(value = "summarized", required = false, defaultValue = "false") Boolean summarized
+    ) {
         // CQRS-ish shortcut straight to out ports, skipping the use cases
-        if (Objects.isNull(exclude)) {
-            return simplePathRetriever.retrieveSimplePath(from, to);
-        } else {
+        Route route;
 
-            return blacklistedLinesPathRetriever.retrieveBlacklistedLinesShortestPath(from, to, exclude);
+        if (Objects.isNull(exclude)) {
+            route = simplePathRetriever.retrieveSimplePath(from, to);
+        } else {
+            route = blacklistedLinesPathRetriever.retrieveBlacklistedLinesShortestPath(from, to, exclude);
         }
+
+        return summarized ? route.withSummary() : route;
+
     }
 }
