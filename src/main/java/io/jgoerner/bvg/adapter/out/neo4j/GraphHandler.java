@@ -147,52 +147,56 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSho
 
     @Override
     public Route retrieveBlacklistedLinesShortestPath(String from, String to, Collection<Line> blacklistedLines) {
-        // var whitelistedLines
-        // var route = getClient().query("""
-        //                 MATCH
-        //                 	p=shortestPath(
-        //                 		(n {name: $from })-[*..100]->(m {name: $to })
-        //                 	)
-        //                 WHERE ALL(
-        //                     connection IN RELATIONSHIPS(p)
-        //                     WHERE connection.line IN $whitelistedLines
-        //                 )
-        //                 RETURN
-        //                 	nodes(p) as stations,
-        //                 	relationships(p) as lines
-        //                 """)
-        //         .bind(from).to("from")
-        //         .bind(to).to("to")
-        //         .fetchAs(Route.class)
-        //         .mappedBy((typeSystem, record) -> {
-        //             var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
-        //             var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
+        var route = getClient().query("""
+                        MATCH
+                        	p=shortestPath(
+                        		(n {name: $from })-[*..100]->(m {name: $to })
+                        	)
+                        WHERE ALL(
+                            connection IN RELATIONSHIPS(p)
+                            WHERE NOT connection.line IN $blacklistedLines
+                        )
+                        RETURN
+                        	nodes(p) as stations,
+                        	relationships(p) as lines
+                        """)
+                .bind(from).to("from")
+                .bind(to).to("to")
+                .bind(
+                        blacklistedLines
+                                .stream()
+                                .map(Line::toString)
+                                .toList()
+                ).to("blacklistedLines")
+                .fetchAs(Route.class)
+                .mappedBy((typeSystem, record) -> {
+                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
+                    var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
 
-        //             var segments = new ArrayList<Segment>();
+                    var segments = new ArrayList<Segment>();
 
-        //             StationEntity fromStation;
-        //             StationEntity toStation;
-        //             Connection connection;
+                    StationEntity fromStation;
+                    StationEntity toStation;
+                    Connection connection;
 
-        //             for (int i = 0; i < lines.size(); i++) {
-        //                 fromStation = stations.get(i);
-        //                 toStation = stations.get(i + 1);
-        //                 connection = lines.get(i);
+                    for (int i = 0; i < lines.size(); i++) {
+                        fromStation = stations.get(i);
+                        toStation = stations.get(i + 1);
+                        connection = lines.get(i);
 
-        //                 segments.add(
-        //                         Segment.builder()
-        //                                 .from(fromStation.getName())
-        //                                 .to(toStation.getName())
-        //                                 .line(connection.getLine())
-        //                                 .duration(connection.getDuration())
-        //                 );
+                        segments.add(
+                                Segment.builder()
+                                        .from(fromStation.getName())
+                                        .to(toStation.getName())
+                                        .line(connection.getLine())
+                                        .duration(connection.getDuration())
+                        );
 
-        //             }
-        //             return new Route(segments);
-        //         })
-        //         .one();
-        // return route.orElse(new Route(new ArrayList<>()));
-        return null;
+                    }
+                    return new Route(segments);
+                })
+                .one();
+        return route.orElse(new Route(new ArrayList<>()));
     }
 }
 
