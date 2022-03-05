@@ -31,7 +31,7 @@ public class PathController {
     Logger log = LoggerFactory.getLogger(SegmentService.class);
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public Route test(@RequestParam("from") String from, @RequestParam("to") String to, @RequestParam(value = "exclude", required = false) List<Line> exclude) {
+    public Route retrievePath(@RequestParam("from") String from, @RequestParam("to") String to, @RequestParam(value = "exclude", required = false) List<Line> exclude) {
         // CQRS-ish shortcut straight to out ports, skipping the use cases
         if (Objects.isNull(exclude)) {
             return simplePathRetriever.retrieveSimplePath(from, to);
