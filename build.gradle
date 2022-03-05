@@ -29,6 +29,7 @@ dockerRun {
     image "neo4j"
     ports "7474:7474", "7687:7687"
     daemonize true
-    env 'NEO4J_AUTH': 'neo4j/bvg'
+    env 'NEO4J_AUTH': 'neo4j/bvg', 'NEO4JLABS_PLUGINS': '["apoc"]'
+    env
     clean true
 }
