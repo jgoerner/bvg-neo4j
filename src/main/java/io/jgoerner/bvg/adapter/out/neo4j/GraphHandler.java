@@ -23,7 +23,13 @@ import java.util.List;
  * @soundtrack Daft Punk - Doin' it right
  */
 @Component
-public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveShortestPath, GetAllStationsOnShortestPath, RetrieveShortestPathWithoutLines {
+public class GraphHandler implements
+        SaveSegment,
+        DeleteAllSegments,
+        RetrieveShortestPath,
+        GetAllStationsOnShortestPath,
+        RetrieveShortestPathWithoutLines,
+        RetrieveFastestPath {
 
     private final Logger log = LoggerFactory.getLogger(GraphHandler.class);
 
@@ -168,6 +174,54 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSho
                                 .map(Line::toString)
                                 .toList()
                 ).to("blacklistedLines")
+                .fetchAs(Route.class)
+                .mappedBy((typeSystem, record) -> {
+                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
+                    var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
+
+                    var segments = new ArrayList<Segment>();
+
+                    StationEntity fromStation;
+                    StationEntity toStation;
+                    Connection connection;
+
+                    for (int i = 0; i < lines.size(); i++) {
+                        fromStation = stations.get(i);
+                        toStation = stations.get(i + 1);
+                        connection = lines.get(i);
+
+                        segments.add(
+                                Segment.builder()
+                                        .from(fromStation.getName())
+                                        .to(toStation.getName())
+                                        .line(connection.getLine())
+                                        .duration(connection.getDuration())
+                        );
+
+                    }
+                    return new Route(segments);
+                })
+                .one();
+        return route.orElse(new Route(new ArrayList<>()));
+    }
+
+    @Override
+    public Route retrieveFastestPath(String from, String to) {
+        var route = getClient().query("""
+                        MATCH
+                            (a {name: $from})
+                        MATCH
+                            (b {name: $to})
+                        CALL
+                            apoc.algo.dijkstra(a, b, "CONNECTIONS", "duration")
+                        YIELD
+                            path
+                        RETURN
+                            nodes(path) as stations,
+                            relationships(path) as lines
+                        """)
+                .bind(from).to("from")
+                .bind(to).to("to")
                 .fetchAs(Route.class)
                 .mappedBy((typeSystem, record) -> {
                     var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
