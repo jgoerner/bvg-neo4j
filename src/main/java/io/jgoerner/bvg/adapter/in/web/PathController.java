@@ -1,6 +1,7 @@
 package io.jgoerner.bvg.adapter.in.web;
 
 
+import io.jgoerner.bvg.application.port.out.RetrieveFastestPath;
 import io.jgoerner.bvg.application.port.out.RetrieveShortestPath;
 import io.jgoerner.bvg.application.port.out.RetrieveShortestPathWithoutLines;
 import io.jgoerner.bvg.application.service.SegmentService;
@@ -29,6 +30,9 @@ public class PathController {
     @Autowired
     private RetrieveShortestPathWithoutLines shortestPathWithoutLinesRetriever;
 
+    @Autowired
+    private RetrieveFastestPath fastestPathRetriever;
+
     Logger log = LoggerFactory.getLogger(SegmentService.class);
 
     @RequestMapping(path = "", method = RequestMethod.GET)
@@ -42,10 +46,19 @@ public class PathController {
         // CQRS-ish shortcut straight to out ports, skipping the use cases
         Route route;
 
-        if (Objects.isNull(exclude)) {
-            route = shortestPathRetriever.retrieveShortestPath(from, to);
-        } else {
-            route = shortestPathWithoutLinesRetriever.retrieveShortestPathWithoutLines(from, to, exclude);
+        switch (strategy) {
+            case fastest -> route = this.fastestPathRetriever.retrieveFastestPath(from, to);
+            case shortest -> {
+                if (Objects.isNull(exclude)) {
+                    route = shortestPathRetriever.retrieveShortestPath(from, to);
+                } else {
+                    route = shortestPathWithoutLinesRetriever.retrieveShortestPathWithoutLines(from, to, exclude);
+                }
+            }
+            default -> {
+                log.error("Could not find strategy matching " + strategy);
+                route = Route.withoutSegments();
+            }
         }
 
         return summarized ? route.withSummary(strategy) : route;

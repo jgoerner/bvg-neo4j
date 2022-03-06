@@ -10,6 +10,10 @@ public record Route(List<Segment> segments) {
                 this.segments.stream().mapToInt(Segment::duration).sum(),
                 strategy);
     }
+
+    public static Route withoutSegments() {
+        return new Route(List.of());
+    }
 }
 
 record RouteWithSummary(List<Segment> segments, Integer stations, Integer duration, RouteStrategy strategy) {
