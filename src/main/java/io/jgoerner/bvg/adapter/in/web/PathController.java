@@ -6,6 +6,7 @@ import io.jgoerner.bvg.application.port.out.RetrieveShortestPathWithoutLines;
 import io.jgoerner.bvg.application.service.SegmentService;
 import io.jgoerner.bvg.domain.Line;
 import io.jgoerner.bvg.domain.Route;
+import io.jgoerner.bvg.domain.RouteStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class PathController {
             @RequestParam("from") String from,
             @RequestParam("to") String to,
             @RequestParam(value = "exclude", required = false) List<Line> exclude,
-            @RequestParam(value = "summarized", required = false, defaultValue = "false") Boolean summarized
+            @RequestParam(value = "summarized", required = false, defaultValue = "false") Boolean summarized,
+            @RequestParam(value = "strategy", required = false, defaultValue = "shortest") RouteStrategy strategy
     ) {
         // CQRS-ish shortcut straight to out ports, skipping the use cases
         Route route;
@@ -46,7 +48,7 @@ public class PathController {
             route = shortestPathWithoutLinesRetriever.retrieveShortestPathWithoutLines(from, to, exclude);
         }
 
-        return summarized ? route.withSummary() : route;
+        return summarized ? route.withSummary(strategy) : route;
 
     }
 }
