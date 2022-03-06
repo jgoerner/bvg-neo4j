@@ -8,6 +8,6 @@ import io.jgoerner.bvg.domain.Route;
  */
 public interface RetrieveShortestPath {
 
-    Route retrieveSimplePath(String from, String to);
+    Route retrieveShortestPath(String from, String to);
 
 }

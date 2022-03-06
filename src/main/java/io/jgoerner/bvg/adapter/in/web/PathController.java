@@ -23,10 +23,10 @@ import java.util.Objects;
 public class PathController {
 
     @Autowired
-    private RetrieveShortestPath simplePathRetriever;
+    private RetrieveShortestPath shortestPathRetriever;
 
     @Autowired
-    private RetrieveShortestPathWithoutLines blacklistedLinesPathRetriever;
+    private RetrieveShortestPathWithoutLines shortestPathWithoutLinesRetriever;
 
     Logger log = LoggerFactory.getLogger(SegmentService.class);
 
@@ -41,9 +41,9 @@ public class PathController {
         Route route;
 
         if (Objects.isNull(exclude)) {
-            route = simplePathRetriever.retrieveSimplePath(from, to);
+            route = shortestPathRetriever.retrieveShortestPath(from, to);
         } else {
-            route = blacklistedLinesPathRetriever.retrieveBlacklistedLinesShortestPath(from, to, exclude);
+            route = shortestPathWithoutLinesRetriever.retrieveShortestPathWithoutLines(from, to, exclude);
         }
 
         return summarized ? route.withSummary() : route;

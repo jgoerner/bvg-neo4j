@@ -11,6 +11,6 @@ import java.util.Collection;
  */
 public interface RetrieveShortestPathWithoutLines {
 
-    Route retrieveBlacklistedLinesShortestPath(String from, String to, Collection<Line> blacklistedLines);
+    Route retrieveShortestPathWithoutLines(String from, String to, Collection<Line> blacklistedLines);
 
 }

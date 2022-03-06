@@ -91,7 +91,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSho
     }
 
     @Override
-    public Route retrieveSimplePath(String from, String to) {
+    public Route retrieveShortestPath(String from, String to) {
         var route = getClient().query("""
                         MATCH
                         	p=shortestPath(
@@ -146,7 +146,7 @@ public class GraphHandler implements SaveSegment, DeleteAllSegments, RetrieveSho
     }
 
     @Override
-    public Route retrieveBlacklistedLinesShortestPath(String from, String to, Collection<Line> blacklistedLines) {
+    public Route retrieveShortestPathWithoutLines(String from, String to, Collection<Line> blacklistedLines) {
         var route = getClient().query("""
                         MATCH
                         	p=shortestPath(
