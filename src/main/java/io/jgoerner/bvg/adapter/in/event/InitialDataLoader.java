@@ -1,4 +1,4 @@
-package io.jgoerner.bvg.adapter.in.scheduled;
+package io.jgoerner.bvg.adapter.in.event;
 
 import io.jgoerner.bvg.application.port.in.CreateSegment;
 import io.jgoerner.bvg.application.port.out.DeleteAllSegments;
