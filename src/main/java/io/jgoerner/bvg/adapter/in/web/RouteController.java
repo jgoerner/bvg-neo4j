@@ -1,18 +1,10 @@
 package io.jgoerner.bvg.adapter.in.web;
 
-
-import io.jgoerner.bvg.application.port.out.RetrieveFastestPath;
-import io.jgoerner.bvg.application.port.out.RetrieveShortestPath;
-import io.jgoerner.bvg.application.port.out.RetrieveShortestPathWithoutLines;
-import io.jgoerner.bvg.application.service.SegmentService;
 import io.jgoerner.bvg.application.service.route.RouteFinderFactory;
 import io.jgoerner.bvg.application.types.RouteFindingOption;
 import io.jgoerner.bvg.application.types.RouteFindingOptions;
 import io.jgoerner.bvg.domain.Line;
 import io.jgoerner.bvg.domain.RouteStrategy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,18 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/route")
-public class PathController {
-
-    @Autowired
-    private RetrieveShortestPath shortestPathRetriever;
-
-    @Autowired
-    private RetrieveShortestPathWithoutLines shortestPathWithoutLinesRetriever;
-
-    @Autowired
-    private RetrieveFastestPath fastestPathRetriever;
-
-    Logger log = LoggerFactory.getLogger(SegmentService.class);
+public class RouteController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public Object retrievePath(
