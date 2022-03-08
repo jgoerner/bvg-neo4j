@@ -5,8 +5,10 @@ import io.jgoerner.bvg.application.port.out.RetrieveFastestPath;
 import io.jgoerner.bvg.application.port.out.RetrieveShortestPath;
 import io.jgoerner.bvg.application.port.out.RetrieveShortestPathWithoutLines;
 import io.jgoerner.bvg.application.service.SegmentService;
+import io.jgoerner.bvg.application.service.route.RouteFinderFactory;
+import io.jgoerner.bvg.application.types.RouteFindingOption;
+import io.jgoerner.bvg.application.types.RouteFindingOptions;
 import io.jgoerner.bvg.domain.Line;
-import io.jgoerner.bvg.domain.Route;
 import io.jgoerner.bvg.domain.RouteStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 
 @RestController
@@ -39,27 +41,17 @@ public class PathController {
     public Object retrievePath(
             @RequestParam("from") String from,
             @RequestParam("to") String to,
-            @RequestParam(value = "exclude", required = false) List<Line> exclude,
+            @RequestParam(value = "exclude", required = false, defaultValue = "") List<Line> exclude,
             @RequestParam(value = "summarized", required = false, defaultValue = "false") Boolean summarized,
             @RequestParam(value = "strategy", required = false, defaultValue = "shortest") RouteStrategy strategy
     ) {
-        // CQRS-ish shortcut straight to out ports, skipping the use cases
-        Route route;
+        var routeFinder = RouteFinderFactory.getRouteFinder(strategy, exclude);
 
-        switch (strategy) {
-            case fastest -> route = this.fastestPathRetriever.retrieveFastestPath(from, to);
-            case shortest -> {
-                if (Objects.isNull(exclude)) {
-                    route = shortestPathRetriever.retrieveShortestPath(from, to);
-                } else {
-                    route = shortestPathWithoutLinesRetriever.retrieveShortestPathWithoutLines(from, to, exclude);
-                }
-            }
-            default -> {
-                log.error("Could not find strategy matching " + strategy);
-                route = Route.withoutSegments();
-            }
-        }
+        var route = routeFinder.findRoute(from, to,
+                new RouteFindingOptions(Map.of(
+                        RouteFindingOption.EXCLUDE_LINES, exclude
+                ))
+        );
 
         return summarized ? route.withSummary(strategy) : route;
 
