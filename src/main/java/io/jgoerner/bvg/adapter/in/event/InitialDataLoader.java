@@ -1,7 +1,7 @@
 package io.jgoerner.bvg.adapter.in.event;
 
 import io.jgoerner.bvg.application.port.in.CreateSegment;
-import io.jgoerner.bvg.application.port.out.DeleteAllSegments;
+import io.jgoerner.bvg.application.port.out.segment.DeleteAllSegments;
 import io.jgoerner.bvg.domain.Segment;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;

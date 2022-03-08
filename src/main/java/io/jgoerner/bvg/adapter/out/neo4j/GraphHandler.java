@@ -1,6 +1,10 @@
 package io.jgoerner.bvg.adapter.out.neo4j;
 
-import io.jgoerner.bvg.application.port.out.*;
+import io.jgoerner.bvg.application.port.out.route.RetrieveFastestRoute;
+import io.jgoerner.bvg.application.port.out.route.RetrieveShortestRoute;
+import io.jgoerner.bvg.application.port.out.route.RetrieveShortestRouteWithoutLines;
+import io.jgoerner.bvg.application.port.out.segment.DeleteAllSegments;
+import io.jgoerner.bvg.application.port.out.segment.SaveSegment;
 import io.jgoerner.bvg.domain.Line;
 import io.jgoerner.bvg.domain.Route;
 import io.jgoerner.bvg.domain.Segment;
@@ -27,9 +31,9 @@ import java.util.Collection;
 public class GraphHandler implements
         SaveSegment,
         DeleteAllSegments,
-        RetrieveShortestPath,
-        RetrieveShortestPathWithoutLines,
-        RetrieveFastestPath {
+        RetrieveShortestRoute,
+        RetrieveShortestRouteWithoutLines,
+        RetrieveFastestRoute {
 
     private final Logger log = LoggerFactory.getLogger(GraphHandler.class);
 
@@ -97,7 +101,7 @@ public class GraphHandler implements
     }
 
     @Override
-    public Route retrieveShortestPath(String from, String to) {
+    public Route retrieveShortestRoute(String from, String to) {
         return getClient().query("""
                         MATCH
                         	p=shortestPath(
@@ -149,7 +153,7 @@ public class GraphHandler implements
     }
 
     @Override
-    public Route retrieveShortestPathWithoutLines(String from, String to, Collection<Line> blacklistedLines) {
+    public Route retrieveShortestRouteWithoutLines(String from, String to, Collection<Line> blacklistedLines) {
         return getClient().query("""
                         MATCH
                         	p=shortestPath(
@@ -178,7 +182,7 @@ public class GraphHandler implements
     }
 
     @Override
-    public Route retrieveFastestPath(String from, String to) {
+    public Route retrieveFastestRoute(String from, String to) {
         return getClient().query("""
                         MATCH
                             (a {name: $from})

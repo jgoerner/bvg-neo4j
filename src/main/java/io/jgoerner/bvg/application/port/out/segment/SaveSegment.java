@@ -1,4 +1,4 @@
-package io.jgoerner.bvg.application.port.out;
+package io.jgoerner.bvg.application.port.out.segment;
 
 import io.jgoerner.bvg.domain.Segment;
 

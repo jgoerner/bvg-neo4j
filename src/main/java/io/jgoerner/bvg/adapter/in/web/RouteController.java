@@ -19,7 +19,7 @@ import java.util.Map;
 public class RouteController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public Object retrievePath(
+    public Object retrieveRoute(
             @RequestParam("from") String from,
             @RequestParam("to") String to,
             @RequestParam(value = "exclude", required = false, defaultValue = "") List<Line> exclude,
