@@ -1,0 +1,525 @@
+{
+  "info": {
+    "_postman_id": "a098925f-42c2-4371-b249-8a3fd68a09b2",
+    "name": "BVG",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Pathfinding V1 ⚡️",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "route"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "Alexanderplatz"
+            },
+            {
+              "key": "to",
+              "value": "Mehringdamm"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Simple Route",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?to=Mehringdamm&from=Alexanderplatz",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "to",
+                  "value": "Mehringdamm"
+                },
+                {
+                  "key": "from",
+                  "value": "Alexanderplatz"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 05 Mar 2022 22:07:20 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Alexanderplatz\"\n            },\n            \"to\": {\n                \"name\": \"Jannowitzbrücke\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Jannowitzbrücke\"\n            },\n            \"to\": {\n                \"name\": \"Heinrich-Heine-Straße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Heinrich-Heine-Straße\"\n            },\n            \"to\": {\n                \"name\": \"Moritzplatz\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Moritzplatz\"\n            },\n            \"to\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"to\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"to\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Pathfinding V2 🚫",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm&exclude=U8,U5",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "route"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "Alexanderplatz"
+            },
+            {
+              "key": "to",
+              "value": "Mehringdamm"
+            },
+            {
+              "key": "exclude",
+              "value": "U8,U5"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Sample Route with no restrictions",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "Alexanderplatz"
+                },
+                {
+                  "key": "to",
+                  "value": "Mehringdamm"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 05 Mar 2022 22:07:40 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Alexanderplatz\"\n            },\n            \"to\": {\n                \"name\": \"Jannowitzbrücke\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Jannowitzbrücke\"\n            },\n            \"to\": {\n                \"name\": \"Heinrich-Heine-Straße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Heinrich-Heine-Straße\"\n            },\n            \"to\": {\n                \"name\": \"Moritzplatz\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Moritzplatz\"\n            },\n            \"to\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"to\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"to\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        }\n    ]\n}"
+        },
+        {
+          "name": "Sample Route with restrictions",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm&exclude=U8,U5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "Alexanderplatz"
+                },
+                {
+                  "key": "to",
+                  "value": "Mehringdamm"
+                },
+                {
+                  "key": "exclude",
+                  "value": "U8,U5"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 05 Mar 2022 22:07:56 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Alexanderplatz\"\n            },\n            \"to\": {\n                \"name\": \"Klosterstraße\"\n            },\n            \"line\": \"U2\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Klosterstraße\"\n            },\n            \"to\": {\n                \"name\": \"Märkisches Museum\"\n            },\n            \"line\": \"U2\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Märkisches Museum\"\n            },\n            \"to\": {\n                \"name\": \"Spittelmarkt\"\n            },\n            \"line\": \"U2\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Spittelmarkt\"\n            },\n            \"to\": {\n                \"name\": \"Hausvogteiplatz\"\n            },\n            \"line\": \"U2\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hausvogteiplatz\"\n            },\n            \"to\": {\n                \"name\": \"Stadtmitte\"\n            },\n            \"line\": \"U2\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Stadtmitte\"\n            },\n            \"to\": {\n                \"name\": \"Kochstraße / Checkpoints Charlie\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Kochstraße / Checkpoints Charlie\"\n            },\n            \"to\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Pathfinding V3 ⏱",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&summarized=true&strategy=fastest",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "route"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "Paradestraße"
+            },
+            {
+              "key": "to",
+              "value": "Boddinstraße"
+            },
+            {
+              "key": "summarized",
+              "value": "true"
+            },
+            {
+              "key": "strategy",
+              "value": "fastest"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Simple Route + Summary",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm&summarized=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "Alexanderplatz"
+                },
+                {
+                  "key": "to",
+                  "value": "Mehringdamm"
+                },
+                {
+                  "key": "summarized",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 05 Mar 2022 22:28:59 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Alexanderplatz\"\n            },\n            \"to\": {\n                \"name\": \"Jannowitzbrücke\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Jannowitzbrücke\"\n            },\n            \"to\": {\n                \"name\": \"Heinrich-Heine-Straße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Heinrich-Heine-Straße\"\n            },\n            \"to\": {\n                \"name\": \"Moritzplatz\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Moritzplatz\"\n            },\n            \"to\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"to\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"to\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        }\n    ],\n    \"stations\": 8,\n    \"duration\": 12\n}"
+        },
+        {
+          "name": "Route before construction (strategy = shortest)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&summarized=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "Paradestraße"
+                },
+                {
+                  "key": "to",
+                  "value": "Boddinstraße"
+                },
+                {
+                  "key": "summarized",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 05 Mar 2022 22:43:59 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Paradestraße\"\n            },\n            \"to\": {\n                \"name\": \"Platz der Luftbrücke\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Platz der Luftbrücke\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"to\": {\n                \"name\": \"Gneisenaustraße\"\n            },\n            \"line\": \"U7\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Gneisenaustraße\"\n            },\n            \"to\": {\n                \"name\": \"Südstern\"\n            },\n            \"line\": \"U7\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Südstern\"\n            },\n            \"to\": {\n                \"name\": \"Hermannplatz\"\n            },\n            \"line\": \"U7\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hermannplatz\"\n            },\n            \"to\": {\n                \"name\": \"Boddinstraße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        }\n    ],\n    \"stations\": 7,\n    \"duration\": 9\n}"
+        },
+        {
+          "name": "Route after construction (strategy = shortest)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&summarized=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "Paradestraße"
+                },
+                {
+                  "key": "to",
+                  "value": "Boddinstraße"
+                },
+                {
+                  "key": "summarized",
+                  "value": "true"
+                },
+                {
+                  "key": "strategy",
+                  "value": "fastest",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 06 Mar 2022 23:22:24 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Paradestraße\"\n            },\n            \"to\": {\n                \"name\": \"Platz der Luftbrücke\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Platz der Luftbrücke\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"to\": {\n                \"name\": \"Gneisenaustraße\"\n            },\n            \"line\": \"U7\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Gneisenaustraße\"\n            },\n            \"to\": {\n                \"name\": \"Südstern\"\n            },\n            \"line\": \"U7\",\n            \"duration\": 20\n        },\n        {\n            \"from\": {\n                \"name\": \"Südstern\"\n            },\n            \"to\": {\n                \"name\": \"Hermannplatz\"\n            },\n            \"line\": \"U7\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hermannplatz\"\n            },\n            \"to\": {\n                \"name\": \"Boddinstraße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        }\n    ],\n    \"stations\": 7,\n    \"duration\": 27,\n    \"strategy\": \"shortest\"\n}"
+        },
+        {
+          "name": "Route afer construciton (strategy = fastest)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&summarized=true&strategy=fastest",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "Paradestraße"
+                },
+                {
+                  "key": "to",
+                  "value": "Boddinstraße"
+                },
+                {
+                  "key": "summarized",
+                  "value": "true"
+                },
+                {
+                  "key": "strategy",
+                  "value": "fastest"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 06 Mar 2022 23:20:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"segments\": [\n        {\n            \"from\": {\n                \"name\": \"Paradestraße\"\n            },\n            \"to\": {\n                \"name\": \"Platz der Luftbrücke\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 1\n        },\n        {\n            \"from\": {\n                \"name\": \"Platz der Luftbrücke\"\n            },\n            \"to\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Mehringdamm\"\n            },\n            \"to\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"line\": \"U6\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hallesches Tor\"\n            },\n            \"to\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Prinzenstaße\"\n            },\n            \"to\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"line\": \"U3\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Kottbusser Tor\"\n            },\n            \"to\": {\n                \"name\": \"Schönleinstraße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Schönleinstraße\"\n            },\n            \"to\": {\n                \"name\": \"Hermannplatz\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 2\n        },\n        {\n            \"from\": {\n                \"name\": \"Hermannplatz\"\n            },\n            \"to\": {\n                \"name\": \"Boddinstraße\"\n            },\n            \"line\": \"U8\",\n            \"duration\": 1\n        }\n    ],\n    \"stations\": 9,\n    \"duration\": 14,\n    \"strategy\": \"fastest\"\n}"
+        }
+      ]
+    }
+  ]
+}
