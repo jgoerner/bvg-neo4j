@@ -7,6 +7,8 @@ import io.jgoerner.bvg.domain.Segment;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
+import org.neo4j.driver.Record;
+import org.neo4j.driver.types.TypeSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +100,7 @@ public class GraphHandler implements
 
     @Override
     public Route retrieveShortestPath(String from, String to) {
-        var route = getClient().query("""
+        return getClient().query("""
                         MATCH
                         	p=shortestPath(
                         		(n {name: $from })-[*..100]->(m {name: $to })
@@ -110,34 +112,36 @@ public class GraphHandler implements
                 .bind(from).to("from")
                 .bind(to).to("to")
                 .fetchAs(Route.class)
-                .mappedBy((typeSystem, record) -> {
-                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
-                    var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
+                .mappedBy(GraphHandler::mapNodesToRoute)
+                .first()
+                .orElse(new Route(new ArrayList<>()));
+    }
 
-                    var segments = new ArrayList<Segment>();
+    private static Route mapNodesToRoute(TypeSystem typeSystem, Record record) {
+        var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
+        var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
 
-                    StationEntity fromStation;
-                    StationEntity toStation;
-                    Connection connection;
+        var segments = new ArrayList<Segment>();
 
-                    for (int i = 0; i < lines.size(); i++) {
-                        fromStation = stations.get(i);
-                        toStation = stations.get(i + 1);
-                        connection = lines.get(i);
+        StationEntity fromStation;
+        StationEntity toStation;
+        Connection connection;
 
-                        segments.add(
-                                Segment.builder()
-                                        .from(fromStation.getName())
-                                        .to(toStation.getName())
-                                        .line(connection.getLine())
-                                        .duration(connection.getDuration())
-                        );
+        for (int i = 0; i < lines.size(); i++) {
+            fromStation = stations.get(i);
+            toStation = stations.get(i + 1);
+            connection = lines.get(i);
 
-                    }
-                    return new Route(segments);
-                })
-                .one();
-        return route.orElse(new Route(new ArrayList<>()));
+            segments.add(
+                    Segment.builder()
+                            .from(fromStation.getName())
+                            .to(toStation.getName())
+                            .line(connection.getLine())
+                            .duration(connection.getDuration())
+            );
+
+        }
+        return new Route(segments);
     }
 
     @Override
@@ -153,7 +157,7 @@ public class GraphHandler implements
 
     @Override
     public Route retrieveShortestPathWithoutLines(String from, String to, Collection<Line> blacklistedLines) {
-        var route = getClient().query("""
+        return getClient().query("""
                         MATCH
                         	p=shortestPath(
                         		(n {name: $from })-[*..100]->(m {name: $to })
@@ -175,39 +179,14 @@ public class GraphHandler implements
                                 .toList()
                 ).to("blacklistedLines")
                 .fetchAs(Route.class)
-                .mappedBy((typeSystem, record) -> {
-                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
-                    var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
-
-                    var segments = new ArrayList<Segment>();
-
-                    StationEntity fromStation;
-                    StationEntity toStation;
-                    Connection connection;
-
-                    for (int i = 0; i < lines.size(); i++) {
-                        fromStation = stations.get(i);
-                        toStation = stations.get(i + 1);
-                        connection = lines.get(i);
-
-                        segments.add(
-                                Segment.builder()
-                                        .from(fromStation.getName())
-                                        .to(toStation.getName())
-                                        .line(connection.getLine())
-                                        .duration(connection.getDuration())
-                        );
-
-                    }
-                    return new Route(segments);
-                })
-                .one();
-        return route.orElse(new Route(new ArrayList<>()));
+                .mappedBy(GraphHandler::mapNodesToRoute)
+                .first()
+                .orElse(new Route(new ArrayList<>()));
     }
 
     @Override
     public Route retrieveFastestPath(String from, String to) {
-        var route = getClient().query("""
+        return getClient().query("""
                         MATCH
                             (a {name: $from})
                         MATCH
@@ -223,34 +202,9 @@ public class GraphHandler implements
                 .bind(from).to("from")
                 .bind(to).to("to")
                 .fetchAs(Route.class)
-                .mappedBy((typeSystem, record) -> {
-                    var stations = record.get("stations").asList(v -> new StationEntity(v.get("name").asString()));
-                    var lines = record.get("lines").asList(v -> new Connection(v.get("line").asString(), v.get("duration").asInt()));
-
-                    var segments = new ArrayList<Segment>();
-
-                    StationEntity fromStation;
-                    StationEntity toStation;
-                    Connection connection;
-
-                    for (int i = 0; i < lines.size(); i++) {
-                        fromStation = stations.get(i);
-                        toStation = stations.get(i + 1);
-                        connection = lines.get(i);
-
-                        segments.add(
-                                Segment.builder()
-                                        .from(fromStation.getName())
-                                        .to(toStation.getName())
-                                        .line(connection.getLine())
-                                        .duration(connection.getDuration())
-                        );
-
-                    }
-                    return new Route(segments);
-                })
-                .one();
-        return route.orElse(new Route(new ArrayList<>()));
+                .mappedBy(GraphHandler::mapNodesToRoute)
+                .first()
+                .orElse(new Route(new ArrayList<>()));
     }
 }
 
