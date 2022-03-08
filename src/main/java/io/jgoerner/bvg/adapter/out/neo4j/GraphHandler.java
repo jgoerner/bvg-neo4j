@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -29,7 +28,6 @@ public class GraphHandler implements
         SaveSegment,
         DeleteAllSegments,
         RetrieveShortestPath,
-        GetAllStationsOnShortestPath,
         RetrieveShortestPathWithoutLines,
         RetrieveFastestPath {
 
@@ -142,11 +140,6 @@ public class GraphHandler implements
 
         }
         return new Route(segments);
-    }
-
-    @Override
-    public List<StationEntity> getAllStationsOnShortestPath(String from, String to) {
-        return stationRepository.findStationsOnShortestPath(from, to).orElse(new ArrayList<>());
     }
 
     private Neo4jClient getClient() {
