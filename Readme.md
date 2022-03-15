@@ -65,43 +65,380 @@ In order to run the code in this repository, you have to make sure you have
 
 The application is build on top of a Neo4j graph based on [Berlin's subway system](https://en.wikipedia.org/wiki/Berlin_U-Bahn) inluding 175 stations (`nodes`) and 398 connections (`vertices`) across all nine Berlin subway lines. 
 
-It was build to showcase the usage of Neo4j & it's pathfinding capabilities in concjunciton with Spring Boot, therefore primarily supporting the following use cases:
+It was build to showcase the usage of Neo4j & it's pathfinding capabilities in concjunciton with Spring Boot, therefore primarily supporting the following use cases (_note: all use cases can be found in the Postman collection under `/api/BVG.postman_collection.json`_):
 
 <details>
 
-  <summary>⚡️ Find the shortest path between two stations</summary>
+  <summary>⚡️ Find the shortest route between two stations</summary>
+  If you simply want to find the shortest (in terms of number of stations) route between two stations, e.g.:
+
+
+  ```curl
+    [GET] http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm
+  ```
+
+  will yield
+
+  <br>
+
+  ```json
+    {
+    "segments": [
+        {
+            "from": {
+                "name": "Alexanderplatz"
+            },
+            "to": {
+                "name": "Jannowitzbrücke"
+            },
+            "line": "U8",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Jannowitzbrücke"
+            },
+            "to": {
+                "name": "Heinrich-Heine-Straße"
+            },
+            "line": "U8",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Heinrich-Heine-Straße"
+            },
+            "to": {
+                "name": "Moritzplatz"
+            },
+            "line": "U8",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Moritzplatz"
+            },
+            "to": {
+                "name": "Kottbusser Tor"
+            },
+            "line": "U8",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Kottbusser Tor"
+            },
+            "to": {
+                "name": "Prinzenstaße"
+            },
+            "line": "U3",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Prinzenstaße"
+            },
+            "to": {
+                "name": "Hallesches Tor"
+            },
+            "line": "U3",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Hallesches Tor"
+            },
+            "to": {
+                "name": "Mehringdamm"
+            },
+            "line": "U6",
+            "duration": 2
+        }
+    ]
+}
+  ```
     
 </details>
 
 <details>
 
-  <summary>🚫 Find the shortest path excluding certain lines</summary>
+  <summary>🚫 Find the shortest route excluding certain lines</summary>
+  If you simply want to find the shortest route between two stations without certain lines, e.g.:
+
+
+  ```curl
+    [GET] http://localhost:8080/route?from=Alexanderplatz&to=Mehringdamm&exclude=U8,U5
+  ```
+
+  will yield
+
+  <br>
+
+  ```json
+  {
+    "segments": [
+        {
+            "from": {
+                "name": "Alexanderplatz"
+            },
+            "to": {
+                "name": "Klosterstraße"
+            },
+            "line": "U2",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Klosterstraße"
+            },
+            "to": {
+                "name": "Märkisches Museum"
+            },
+            "line": "U2",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Märkisches Museum"
+            },
+            "to": {
+                "name": "Spittelmarkt"
+            },
+            "line": "U2",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Spittelmarkt"
+            },
+            "to": {
+                "name": "Hausvogteiplatz"
+            },
+            "line": "U2",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Hausvogteiplatz"
+            },
+            "to": {
+                "name": "Stadtmitte"
+            },
+            "line": "U2",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Stadtmitte"
+            },
+            "to": {
+                "name": "Kochstraße / Checkpoints Charlie"
+            },
+            "line": "U6",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Kochstraße / Checkpoints Charlie"
+            },
+            "to": {
+                "name": "Hallesches Tor"
+            },
+            "line": "U6",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Hallesches Tor"
+            },
+            "to": {
+                "name": "Mehringdamm"
+            },
+            "line": "U6",
+            "duration": 2
+        }
+    ]
+}
+  ```
+   
+</details>
+
+<details>
+
+  <summary>⏱ Find the quickest route without</summary>
+  If you simply want to find the fastest (in terms of number duration) route between two stations, e.g.:
+
+
+  ```curl
+    [GET] http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&strategy=fastest
+  ```
+
+  will yield
+
+  <br>
+
+  ```json
+    {
+    "segments": [
+        {
+            "from": {
+                "name": "Paradestraße"
+            },
+            "to": {
+                "name": "Platz der Luftbrücke"
+            },
+            "line": "U6",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Platz der Luftbrücke"
+            },
+            "to": {
+                "name": "Mehringdamm"
+            },
+            "line": "U6",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Mehringdamm"
+            },
+            "to": {
+                "name": "Gneisenaustraße"
+            },
+            "line": "U7",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Gneisenaustraße"
+            },
+            "to": {
+                "name": "Südstern"
+            },
+            "line": "U7",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Südstern"
+            },
+            "to": {
+                "name": "Hermannplatz"
+            },
+            "line": "U7",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Hermannplatz"
+            },
+            "to": {
+                "name": "Boddinstraße"
+            },
+            "line": "U8",
+            "duration": 1
+        }
+    ]
+}
+  ```
     
 </details>
 
 <details>
 
-  <summary>⏱ Find the quickest path without</summary>
+  <summary>📊 Get route summary</summary>
+  If you're interested in some additional summary statistics, e.g.:
+
+
+  ```curl
+    [GET] http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&summarized=true&strategy=fastest
+  ```
+
+  will yield
+
+  <br>
+
+  ```json
+    {
+    "segments": [
+        {
+            "from": {
+                "name": "Paradestraße"
+            },
+            "to": {
+                "name": "Platz der Luftbrücke"
+            },
+            "line": "U6",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Platz der Luftbrücke"
+            },
+            "to": {
+                "name": "Mehringdamm"
+            },
+            "line": "U6",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Mehringdamm"
+            },
+            "to": {
+                "name": "Gneisenaustraße"
+            },
+            "line": "U7",
+            "duration": 1
+        },
+        {
+            "from": {
+                "name": "Gneisenaustraße"
+            },
+            "to": {
+                "name": "Südstern"
+            },
+            "line": "U7",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Südstern"
+            },
+            "to": {
+                "name": "Hermannplatz"
+            },
+            "line": "U7",
+            "duration": 2
+        },
+        {
+            "from": {
+                "name": "Hermannplatz"
+            },
+            "to": {
+                "name": "Boddinstraße"
+            },
+            "line": "U8",
+            "duration": 1
+        }
+    ],
+    "stations": 7,
+    "duration": 9,
+    "strategy": "fastest"
+}
+  ```
+   
     
 </details>
 
-<details>
+---
 
-  <summary>📊 Get path summary</summary>
-    
-</details>
+If you're already familiar with some basic Neo4j concepts, you might just want to explore the Graph via the web UI:
 
-<details>
-
-  <summary>🧪 Explore the graph via the UI</summary>
-
-  If you're already familiar with some basic Neo4j concepts, you might just want to explore the Graph via the web UI:
-
-  1. open your browser at `localhost:7474`
-  2. login with user `neo4j` and password `bvg`
-    
-</details>
-
+1. open your browser at `localhost:7474`
+2. login with user `neo4j` and password `bvg`
 
 <!-- CONTACT -->
 ## Contact
