@@ -6,7 +6,7 @@
   },
   "item": [
     {
-      "name": "⚡️ Find the shortest path between two stations",
+      "name": "⚡️ Find the shortest route between two stations",
       "request": {
         "method": "GET",
         "header": [],
@@ -73,7 +73,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&strategy=fastest&summarized=true",
+          "raw": "http://localhost:8080/route?from=Paradestraße&to=Boddinstraße&strategy=fastest",
           "protocol": "http",
           "host": [
             "localhost"
@@ -94,10 +94,6 @@
             {
               "key": "strategy",
               "value": "fastest"
-            },
-            {
-              "key": "summarized",
-              "value": "true"
             }
           ]
         }
