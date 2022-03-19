@@ -265,7 +265,7 @@ It was build to showcase the usage of Neo4j & it's pathfinding capabilities in c
 
 <details>
 
-  <summary>⏱ Find the quickest route (weighted pathfinding with [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm))</summary>
+  <summary>⏱ Find the quickest route (weighted pathfinding with <a target="_blank" href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra</a>)</summary>
   If you simply want to find the fastest (in terms of number duration) route between two stations, e.g.:
 
 
